@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Skill2Hire AI</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
+    <!-- NAVBAR -->
     <header class="navbar">
-        <div class="logo">Skill2Hire <span>AI</span></div>
+
+        <a href="#home" class="logo">
+            Skill2Hire <span>AI</span>
+        </a>
 
         <nav>
             <a href="#home">Home</a>
@@ -20,6 +33,7 @@
             <a href="#roadmap">Roadmap</a>
             <a href="#interview">Mock Interview</a>
         </nav>
+
     </header>
 
 
@@ -30,40 +44,96 @@
 
             <div class="hero-content">
 
-                <p class="tag">AI-POWERED CAREER COMPANION</p>
+                <p class="tag">
+                    CAREER COMPANION FOR YOUR NEXT MOVE
+                </p>
 
                 <h1>
-                    Turn Your Skills<br>
-                    Into Your <span>Dream Job.</span>
+                    From your current
+                    skills to your
+                    <span>next opportunity.</span>
                 </h1>
 
                 <p class="hero-text">
-                    Discover your skill gaps, get a personalized learning
-                    roadmap, and prepare for interviews — all in one place.
+                    Identify what you're missing, build a practical learning
+                    roadmap, and practice for the role you want — all in one place.
                 </p>
 
-                <a href="#analyzer" class="primary-btn">
-                    Analyze My Skills →
-                </a>
+                <div class="hero-actions">
+
+                    <a href="#analyzer" class="primary-btn">
+                        Start Your Analysis
+                    </a>
+
+                    <a href="#roadmap" class="secondary-btn">
+                        Explore Roadmap
+                    </a>
+
+                </div>
+
+                <div class="hero-stats">
+
+                    <div>
+                        <strong>01</strong>
+                        <span>Analyze</span>
+                    </div>
+
+                    <div>
+                        <strong>02</strong>
+                        <span>Learn</span>
+                    </div>
+
+                    <div>
+                        <strong>03</strong>
+                        <span>Prepare</span>
+                    </div>
+
+                </div>
 
             </div>
 
-            <div class="hero-card">
 
-                <div class="card-icon">✦</div>
+            <div class="hero-visual">
 
-                <h3>AI Career Analysis</h3>
+                <div class="visual-card main-visual-card">
 
-                <p>
-                    Your current skills are analyzed against your target
-                    role to create a personalized career path.
-                </p>
+                    <div class="visual-top">
+                        <span>CAREER ANALYSIS</span>
+                        <span class="status-dot"></span>
+                    </div>
 
-                <div class="mini-progress">
-                    <div></div>
+                    <div class="visual-score">
+                        <strong>Skill</strong>
+                        <strong>Gap</strong>
+                    </div>
+
+                    <p>
+                        Discover the skills you need for your target role.
+                    </p>
+
+                    <div class="visual-line">
+                        <span></span>
+                    </div>
+
+                    <div class="visual-tags">
+                        <span>Skills</span>
+                        <span>Roadmap</span>
+                        <span>Interview</span>
+                    </div>
+
                 </div>
 
-                <small>Career readiness</small>
+
+                <div class="floating-card floating-card-one">
+                    <span>ROADMAP</span>
+                    <strong>Personalized</strong>
+                </div>
+
+
+                <div class="floating-card floating-card-two">
+                    <span>PROGRESS</span>
+                    <strong>Track your growth</strong>
+                </div>
 
             </div>
 
@@ -77,10 +147,13 @@
 
                 <p class="tag">STEP 01</p>
 
-                <h2>Tell us about your skills</h2>
+                <h2>
+                    Start with where you are.
+                </h2>
 
                 <p>
-                    Enter what you already know and the role you're aiming for.
+                    Tell us about your current skills and the role you're
+                    working toward.
                 </p>
 
             </div>
@@ -88,25 +161,66 @@
 
             <div class="analyzer-card">
 
-                <label for="skills">Your Current Skills</label>
+                <div class="form-intro">
 
-                <textarea
-                    id="skills"
-                    placeholder="Example: HTML, CSS, Python basics, Git..."
-                ></textarea>
+                    <span class="step-number">
+                        01
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Your career starting point
+                        </h3>
+
+                        <p>
+                            Be honest about your current skill level.
+                            Your roadmap will be built around it.
+                        </p>
+
+                    </div>
+
+                </div>
 
 
-                <label for="target-role">Target Job Role</label>
+                <div class="form-group">
 
-                <input
-                    type="text"
-                    id="target-role"
-                    placeholder="Example: Frontend Developer"
+                    <label for="skills">
+                        Your Current Skills
+                    </label>
+
+                    <textarea
+                        id="skills"
+                        placeholder="Example: HTML, CSS, Python basics, Git..."
+                    ></textarea>
+
+                    <small>
+                        Separate multiple skills with commas.
+                    </small>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="target-role">
+                        Target Job Role
+                    </label>
+
+                    <input
+                        type="text"
+                        id="target-role"
+                        placeholder="Example: Frontend Developer"
+                    >
+
+                </div>
+
+
+                <button
+                    class="primary-btn analyze-btn"
+                    onclick="analyzeSkills()"
                 >
-
-
-                <button class="primary-btn" onclick="analyzeSkills()">
-                    Analyze My Skills →
+                    Analyze My Skills
                 </button>
 
             </div>
@@ -121,14 +235,26 @@
 
                 <p class="tag">STEP 02</p>
 
-                <h2>Your Skill Gap</h2>
+                <h2>
+                    Understand your skill gap.
+                </h2>
+
+                <p>
+                    See what you already have and what you should focus on next.
+                </p>
 
             </div>
 
 
             <div class="gap-card">
 
-                <h3>📊 Skill Gap Analysis</h3>
+                <div class="card-label">
+                    SKILL GAP ANALYSIS
+                </div>
+
+                <h3>
+                    Where you stand right now
+                </h3>
 
                 <p id="skill-gap">
                     Your analysis will appear here.
@@ -146,111 +272,270 @@
 
                 <p class="tag">STEP 03</p>
 
-                <h2>Your Personalized Roadmap</h2>
+                <h2>
+                    Your path forward.
+                </h2>
 
-                <div class="progress-box">
-    <div class="progress-header">
-        <span>Career Progress</span>
-        <strong id="progress-percent">0%</strong>
-    </div>
+                <p>
+                    Follow your personalized roadmap and track your progress
+                    as you learn.
+                </p>
 
-    <div class="progress-bar">
-        <div id="progress-fill"></div>
-    </div>
+            </div>
 
-    <p id="progress-text">0 of 5 steps completed</p>
-    <div class="readiness-card">
-    <div>
-        <p class="tag">CAREER READINESS</p>
-        <h3 id="readiness-score">0%</h3>
-        <p id="readiness-text">
-            Complete your roadmap to improve your career readiness.
+
+            <!-- PROGRESS -->
+            <div class="progress-box">
+
+                <div class="progress-header">
+
+                    <div>
+
+                        <span class="progress-label">
+                            CAREER PROGRESS
+                        </span>
+
+                        <p id="progress-text">
+                            0 of 5 steps completed
+                        </p>
+
+                    </div>
+
+                    <strong id="progress-percent">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-bar">
+                    <div id="progress-fill"></div>
+                </div>
+
+            </div>
+
+
+            <!-- READINESS -->
+            <div class="readiness-card">
+
+                <div>
+
+                    <p class="tag">
+                        CAREER READINESS
+                    </p>
+
+                    <h3 id="readiness-score">
+                        0%
+                    </h3>
+
+                    <p id="readiness-text">
+                        Complete your roadmap to improve your career readiness.
+                    </p>
+
+                </div>
+
+
+                <div class="readiness-circle">
+
+                    <span id="readiness-circle-score">
+                        0%
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ROADMAP ITEMS -->
+            <div
+                id="roadmap-container"
+                class="roadmap-container"
+            >
+
+                <div class="empty-message">
+
+                    <span class="empty-number">
+                        03
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Your roadmap will appear here.
+                        </h3>
+
+                        <p>
+                            Analyze your skills above to generate
+                            your personalized learning path.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+ <!-- MOCK INTERVIEW -->
+<section
+    id="interview"
+    class="section interview-section"
+>
+
+    <div class="section-heading">
+
+        <p class="tag">
+            STEP 04
         </p>
-    </div>
 
-    <div class="readiness-circle">
-        <span id="readiness-circle-score">0%</span>
-    </div>
-</div>
-</div>
-
-                <p>
-                    Follow these steps to move closer to your target role.
-                </p>
-
-            </div>
-
-
-            <div id="roadmap-container" class="roadmap-container">
-
-                <p class="empty-message">
-                    Analyze your skills to generate your roadmap.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- MOCK INTERVIEW -->
-        <section id="interview" class="section interview-section">
-
-            <div class="section-heading">
-
-                <p class="tag">STEP 04</p>
-
-                <h2>AI Mock Interview</h2>
-
-                <p>
-                    Practice common interview questions for your target role.
-                </p>
-
-            </div>
-
-
-            <div class="interview-card">
-
-                <h3>🎤 Ready for your interview?</h3>
-
-                <p>
-                    Test your knowledge and improve your confidence
-                    with practice questions.
-                </p>
-
-                <button class="primary-btn" onclick="startInterview()">
-                    Start Mock Interview
-                </button>
-
-                <div id="interview-question"></div>
-
-<textarea
-    id="interview-answer"
-    placeholder="Type your answer here..."
-></textarea>
-
-<button class="primary-btn" onclick="submitAnswer()">
-    Submit Answer →
-</button>
-
-<div id="interview-feedback"></div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <footer>
+        <h2>
+            Prepare before the interview.
+        </h2>
 
         <p>
-            Skill2Hire AI · Built for Hackathon 2026
+            Practice role-specific questions and improve your answers
+            before facing the real interview.
+        </p>
+
+    </div>
+
+
+    <div class="interview-card">
+
+        <div class="interview-intro">
+
+            <div class="interview-number">
+                04
+            </div>
+
+            <div>
+
+                <h3>
+                    Mock Interview
+                </h3>
+
+                <p>
+                    Get a question based on your target role,
+                    write your answer, and receive instant feedback.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-btn"
+            onclick="startInterview()"
+        >
+            Start Mock Interview
+        </button>
+
+
+        <div id="interview-question"></div>
+
+
+        <textarea
+            id="interview-answer"
+            placeholder="Write your answer here..."
+        ></textarea>
+
+
+        <button
+            class="secondary-btn submit-answer-btn"
+            onclick="submitAnswer()"
+        >
+            Submit Answer
+        </button>
+
+
+        <!-- INTERVIEW RESULTS -->
+
+        <div
+            id="interview-result"
+            class="interview-result"
+        >
+
+            <div class="interview-score-box">
+
+                <span class="result-label">
+                    Interview Score
+                </span>
+
+                <strong id="interview-score">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="feedback-content">
+
+                <div>
+
+                    <h4>
+                        Strength
+                    </h4>
+
+                    <p id="interview-strength">
+                        Your strengths will appear here.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h4>
+                        Improvement
+                    </h4>
+
+                    <p id="interview-improvement">
+                        Suggestions will appear here.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h4>
+                        Next Step
+                    </h4>
+
+                    <p id="interview-suggestion">
+                        Your next-step suggestion will appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-brand">
+            Skill2Hire <span>AI</span>
+        </div>
+
+        <p>
+            Built for Hack Devengers 2.0 · 2026
         </p>
 
     </footer>
 
 
+    <!-- JAVASCRIPT -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
+
 </html>

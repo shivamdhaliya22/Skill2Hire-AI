@@ -30,20 +30,16 @@ async function analyzeSkills() {
             throw new Error("Analysis failed.");
         }
 
-        // Skill gap
         document.getElementById("skill-gap").textContent =
             data.skill_gap;
 
-        // Roadmap
         const roadmapContainer =
             document.getElementById("roadmap-container");
 
         roadmapContainer.innerHTML = "";
 
         data.roadmap.forEach((step, index) => {
-
             const item = document.createElement("div");
-
             item.className = "roadmap-item";
 
             item.innerHTML = `
@@ -62,33 +58,40 @@ async function analyzeSkills() {
             roadmapContainer.appendChild(item);
         });
 
-        // Reset progress
+        // Save current roadmap information
+        localStorage.setItem(
+            "skill2hire_role",
+            targetRole
+        );
+
+        localStorage.setItem(
+            "skill2hire_skills",
+            skills
+        );
+
+        // Reset completion state for a new analysis
+        localStorage.removeItem("skill2hire_completed");
+
         updateProgress();
 
-        // Scroll to results
         document.getElementById("results").scrollIntoView({
             behavior: "smooth"
         });
 
     } catch (error) {
-
         console.error(error);
 
         alert(
             "Something went wrong. Please make sure the Flask server is running."
         );
-
     } finally {
-
         button.textContent = "Analyze My Skills →";
         button.disabled = false;
     }
 }
 
 
-// Mark roadmap step as completed
 function completeStep(button) {
-
     const item = button.parentElement;
 
     if (item.classList.contains("completed")) {
@@ -100,13 +103,64 @@ function completeStep(button) {
     button.textContent = "Completed ✓";
     button.disabled = true;
 
+    saveProgress();
     updateProgress();
 }
 
 
-// Update progress bar
-function updateProgress() {
+function saveProgress() {
+    const steps =
+        document.querySelectorAll(".roadmap-item");
 
+    const completedSteps = [];
+
+    steps.forEach((step, index) => {
+        if (step.classList.contains("completed")) {
+            completedSteps.push(index);
+        }
+    });
+
+    localStorage.setItem(
+        "skill2hire_completed",
+        JSON.stringify(completedSteps)
+    );
+}
+
+
+function loadProgress() {
+    const savedProgress =
+        localStorage.getItem("skill2hire_completed");
+
+    if (!savedProgress) {
+        updateProgress();
+        return;
+    }
+
+    const completedSteps =
+        JSON.parse(savedProgress);
+
+    const steps =
+        document.querySelectorAll(".roadmap-item");
+
+    completedSteps.forEach(index => {
+        if (steps[index]) {
+            const button =
+                steps[index].querySelector(".complete-btn");
+
+            steps[index].classList.add("completed");
+
+            if (button) {
+                button.textContent = "Completed ✓";
+                button.disabled = true;
+            }
+        }
+    });
+
+    updateProgress();
+}
+
+
+function updateProgress() {
     const steps =
         document.querySelectorAll(".roadmap-item");
 
@@ -123,7 +177,6 @@ function updateProgress() {
     const percentage =
         Math.round((completed / total) * 100);
 
-    // Roadmap progress
     document.getElementById("progress-percent").textContent =
         `${percentage}%`;
 
@@ -133,7 +186,6 @@ function updateProgress() {
     document.getElementById("progress-text").textContent =
         `${completed} of ${total} steps completed`;
 
-    // Career readiness
     const readinessScore = percentage;
 
     document.getElementById("readiness-score").textContent =
@@ -143,30 +195,22 @@ function updateProgress() {
         `${readinessScore}%`;
 
     if (readinessScore === 0) {
-
         document.getElementById("readiness-text").textContent =
             "Start your roadmap to improve your career readiness.";
-
     } else if (readinessScore < 50) {
-
         document.getElementById("readiness-text").textContent =
             "Good start! Keep completing your roadmap steps.";
-
     } else if (readinessScore < 100) {
-
         document.getElementById("readiness-text").textContent =
             "You're making great progress. Keep going!";
-
     } else {
-
         document.getElementById("readiness-text").textContent =
             "Amazing! You've completed your learning roadmap.";
     }
 }
 
-// Mock Interview
-function startInterview() {
 
+function startInterview() {
     const targetRole =
         document.getElementById("target-role").value.trim();
 
@@ -212,32 +256,31 @@ function startInterview() {
         questions[Math.floor(Math.random() * questions.length)];
 
     document.getElementById("interview-question").innerHTML = `
-        <p>🎤 Interview Question</p>
+        <p>Interview Question</p>
         <br>
         <p>${randomQuestion}</p>
     `;
 
     document.getElementById("interview-answer").value = "";
-
     document.getElementById("interview-feedback").innerHTML = "";
 }
 
 
-// Submit interview answer
 function submitAnswer() {
-
     const answer =
         document.getElementById("interview-answer").value.trim();
 
-    const feedback =
-        document.getElementById("interview-feedback");
-
     if (!answer) {
+        document.getElementById("interview-score").textContent = "—";
 
-        feedback.innerHTML = `
-            <h4>⚠️ No Answer</h4>
-            <p>Please write an answer before submitting.</p>
-        `;
+        document.getElementById("interview-strength").textContent =
+            "No answer submitted yet.";
+
+        document.getElementById("interview-improvement").textContent =
+            "Write an answer before submitting.";
+
+        document.getElementById("interview-suggestion").textContent =
+            "Start with a clear explanation and include a practical example.";
 
         return;
     }
@@ -245,44 +288,67 @@ function submitAnswer() {
     const wordCount =
         answer.split(/\s+/).length;
 
-    let feedbackMessage = "";
-    let suggestion = "";
+    let score;
+    let strength;
+    let improvement;
+    let suggestion;
 
     if (wordCount < 20) {
 
-        feedbackMessage =
-            "Your answer is quite short.";
+        score = 45;
+
+        strength =
+            "You gave a direct answer and stayed focused.";
+
+        improvement =
+            "Your answer needs more detail and context.";
 
         suggestion =
-            "Try adding more details, your role in the project, and the technologies you used.";
+            "Add your role, the technology you used, and one practical example.";
 
     } else if (wordCount < 50) {
 
-        feedbackMessage =
-            "Good start! Your answer has some useful details.";
+        score = 70;
+
+        strength =
+            "Good start with a reasonable amount of detail.";
+
+        improvement =
+            "Try explaining your reasoning or experience more clearly.";
 
         suggestion =
-            "Try explaining the challenges you faced and how you solved them.";
+            "Use a simple structure: situation, what you did, and the result.";
 
     } else {
 
-        feedbackMessage =
-            "Good answer! You have provided enough detail.";
+        score = 90;
+
+        strength =
+            "Your answer is detailed and shows good communication.";
+
+        improvement =
+            "Keep the answer focused so the important points stand out.";
 
         suggestion =
-            "For an interview, keep your answer structured and highlight your contribution and results.";
+            "Highlight your personal contribution and the result you achieved.";
     }
 
-    feedback.innerHTML = `
-        <h4>💡 Interview Feedback</h4>
 
-        <p>${feedbackMessage}</p>
+    document.getElementById("interview-score").textContent =
+        `${score}/100`;
 
-        <p><strong>Suggestion:</strong> ${suggestion}</p>
+    document.getElementById("interview-strength").textContent =
+        strength;
 
-        <p>
-            <strong>Answer length:</strong>
-            ${wordCount} words
-        </p>
-    `;
+    document.getElementById("interview-improvement").textContent =
+        improvement;
+
+    document.getElementById("interview-suggestion").textContent =
+        suggestion;
 }
+
+
+// Restore saved roadmap progress after page reload
+window.addEventListener("load", function () {
+    loadProgress();
+});
