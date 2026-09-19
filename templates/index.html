@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Skill2Hire AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">Skill2Hire <span>AI</span></div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#analyzer">Skill Analyzer</a>
+            <a href="#roadmap">Roadmap</a>
+            <a href="#interview">Mock Interview</a>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+        <section id="home" class="hero">
+
+            <div class="hero-content">
+
+                <p class="tag">AI-POWERED CAREER COMPANION</p>
+
+                <h1>
+                    Turn Your Skills<br>
+                    Into Your <span>Dream Job.</span>
+                </h1>
+
+                <p class="hero-text">
+                    Discover your skill gaps, get a personalized learning
+                    roadmap, and prepare for interviews — all in one place.
+                </p>
+
+                <a href="#analyzer" class="primary-btn">
+                    Analyze My Skills →
+                </a>
+
+            </div>
+
+            <div class="hero-card">
+
+                <div class="card-icon">✦</div>
+
+                <h3>AI Career Analysis</h3>
+
+                <p>
+                    Your current skills are analyzed against your target
+                    role to create a personalized career path.
+                </p>
+
+                <div class="mini-progress">
+                    <div></div>
+                </div>
+
+                <small>Career readiness</small>
+
+            </div>
+
+        </section>
+
+
+        <!-- SKILL ANALYZER -->
+        <section id="analyzer" class="section">
+
+            <div class="section-heading">
+
+                <p class="tag">STEP 01</p>
+
+                <h2>Tell us about your skills</h2>
+
+                <p>
+                    Enter what you already know and the role you're aiming for.
+                </p>
+
+            </div>
+
+
+            <div class="analyzer-card">
+
+                <label for="skills">Your Current Skills</label>
+
+                <textarea
+                    id="skills"
+                    placeholder="Example: HTML, CSS, Python basics, Git..."
+                ></textarea>
+
+
+                <label for="target-role">Target Job Role</label>
+
+                <input
+                    type="text"
+                    id="target-role"
+                    placeholder="Example: Frontend Developer"
+                >
+
+
+                <button class="primary-btn" onclick="analyzeSkills()">
+                    Analyze My Skills →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESULTS -->
+        <section id="results" class="section results-section">
+
+            <div class="section-heading">
+
+                <p class="tag">STEP 02</p>
+
+                <h2>Your Skill Gap</h2>
+
+            </div>
+
+
+            <div class="gap-card">
+
+                <h3>📊 Skill Gap Analysis</h3>
+
+                <p id="skill-gap">
+                    Your analysis will appear here.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ROADMAP -->
+        <section id="roadmap" class="section">
+
+            <div class="section-heading">
+
+                <p class="tag">STEP 03</p>
+
+                <h2>Your Personalized Roadmap</h2>
+
+                <div class="progress-box">
+    <div class="progress-header">
+        <span>Career Progress</span>
+        <strong id="progress-percent">0%</strong>
+    </div>
+
+    <div class="progress-bar">
+        <div id="progress-fill"></div>
+    </div>
+
+    <p id="progress-text">0 of 5 steps completed</p>
+    <div class="readiness-card">
+    <div>
+        <p class="tag">CAREER READINESS</p>
+        <h3 id="readiness-score">0%</h3>
+        <p id="readiness-text">
+            Complete your roadmap to improve your career readiness.
+        </p>
+    </div>
+
+    <div class="readiness-circle">
+        <span id="readiness-circle-score">0%</span>
+    </div>
+</div>
+</div>
+
+                <p>
+                    Follow these steps to move closer to your target role.
+                </p>
+
+            </div>
+
+
+            <div id="roadmap-container" class="roadmap-container">
+
+                <p class="empty-message">
+                    Analyze your skills to generate your roadmap.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- MOCK INTERVIEW -->
+        <section id="interview" class="section interview-section">
+
+            <div class="section-heading">
+
+                <p class="tag">STEP 04</p>
+
+                <h2>AI Mock Interview</h2>
+
+                <p>
+                    Practice common interview questions for your target role.
+                </p>
+
+            </div>
+
+
+            <div class="interview-card">
+
+                <h3>🎤 Ready for your interview?</h3>
+
+                <p>
+                    Test your knowledge and improve your confidence
+                    with practice questions.
+                </p>
+
+                <button class="primary-btn" onclick="startInterview()">
+                    Start Mock Interview
+                </button>
+
+                <div id="interview-question"></div>
+
+<textarea
+    id="interview-answer"
+    placeholder="Type your answer here..."
+></textarea>
+
+<button class="primary-btn" onclick="submitAnswer()">
+    Submit Answer →
+</button>
+
+<div id="interview-feedback"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            Skill2Hire AI · Built for Hackathon 2026
+        </p>
+
+    </footer>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
